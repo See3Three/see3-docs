@@ -10,7 +10,8 @@ The smart-contract that it uses is deployed on the Aleph Zero testnet as the fol
 
 It's currently just a CLI tool.
 
-```See3 Gov\'nor CLI
+```bash
+See3 Gov\'nor CLI
 
 Usage: ./govnor.sh [option] ...
 
@@ -30,7 +31,8 @@ Usage: ./govnor.sh [option] ...
    finalize-vote       Finalize the current vote.
                        Usage: ./govnor.sh finalize-vote --suri SURI
    withdraw            Withdraw funds.
-                       Usage: ./govnor.sh withdraw --suri SURI```
+                       Usage: ./govnor.sh withdraw --suri SURI
+```
 
 ## Why No GUI?
 
