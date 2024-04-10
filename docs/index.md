@@ -10,10 +10,10 @@ hero:
       link: /Introduction/Introduction
     - theme: alt
       text: "Read Specification"
-      link: /Specification
+      link: /Specification/Specification
     - theme: alt
       text: "Use see3-js (alpha)"
-      link: /Whitepaper
+      link: /Implementations/see3-js/Overview
 
 features:
   - title: "see3-js"
