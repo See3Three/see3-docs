@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/docs/",
   title: "See3 Documentation",
   description: "Documentation for the See3 Open Standard and Tooling",
   themeConfig: {
