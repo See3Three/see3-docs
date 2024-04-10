@@ -4,7 +4,7 @@ Gov'nor is a proof-of-concept central governance system for See3. It follows the
 
 The codebase can be found [here.](https://github.com/see3-js/See3-DAO)
 
-The smart-contract that it uses is deployed on the Aleph Zero testnet as the following contract: `5DhQMCBCP7QibiRPcJ8oZSFLYeEWWknVkuicjQPydTcq5gZa`
+The smart-contract that it uses is deployed on the Aleph Zero testnet as the following address: `5DhQMCBCP7QibiRPcJ8oZSFLYeEWWknVkuicjQPydTcq5gZa`
 
 ## Usage
 
