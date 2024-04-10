@@ -42,6 +42,9 @@ export default defineConfig({
             { text: 'Overview', link: '/Implementations/wink/Overview' },
             { text: 'Usage', link: '/Implementations/wink/Usage' }
           ]},
+          { text: 'Gov\'nor', items: [
+            { text: 'Overview', link: '/Implementations/Govnor/Overview' }
+          ]},
         ]
       },
     ],

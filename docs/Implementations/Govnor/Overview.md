@@ -1,6 +1,6 @@
 # Gov'nor
 
-Gov'nor is a proof-of-concept central governance system for See3. It follows the description given in [](../../Introduction/Governance.md).
+Gov'nor is a proof-of-concept central governance system for See3. It follows the description given in [the introduction.](../../Introduction/Governance.md)
 
 The codebase can be found [here.](https://github.com/see3-js/govnor)
 
