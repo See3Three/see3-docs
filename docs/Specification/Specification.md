@@ -8,7 +8,7 @@ This is a pre-release version of the See3 Technical Specification. It is incompl
 
 ## Introductory
 
-The design rationale, and most aspects of See3's implementation, are given in the ["How Does See3 Work?" section.](../Implementation/Specifics.md) This is necessary reading before you proceed to read the technical specification.
+The design rationale, and most aspects of See3's implementation, are given in the ["How Does See3 Work?" section.](../Introduction/Introduction.md) This is necessary reading before you proceed to read the technical specification.
 
 The purpose of this technical specification is to define the data structures, choices of cryptography, and other elements which are unique to See3, as an aid for producing See3-compliant software implementations.
 
