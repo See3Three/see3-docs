@@ -1,0 +1,69 @@
+at_capture: At Time of Capture {
+    camera: Camera
+    camera.shape: circle
+    camera.style.fill: "#afafff"
+
+    camera -> camera_storage
+
+    camera_storage: Camera Storage
+    camera_storage.shape: document
+
+    camera_pubkey: Camera Public Key
+    camera_privkey: Camera Private Key
+    signed_camera_pubkey: Signed Camera Public Key
+    trusted_keys: Trusted Authority's Public Key
+
+    camera_pubkey.shape: parallelogram
+    camera_privkey.shape: parallelogram
+    signed_camera_pubkey.shape: parallelogram
+    trusted_keys.shape: parallelogram
+
+    camera_privkey.style.fill: "#FFD7AF"
+
+    camera_storage -> camera_pubkey: retrieves camera public key
+    camera_storage -> signed_camera_pubkey: retrieves signed camera public key
+    camera_storage -> camera_privkey: retrieves camera private key
+    camera_storage -> trusted_keys: retrieves the trusted keys
+
+    image_data: Image Data
+    image_data.shape: parallelogram
+    camera -> image_data: captures image
+
+    hash_function: Hash Function
+    image_data -> hash_function
+
+    hashed_image_data: Hashed Image Data
+    hashed_image_data.shape: parallelogram
+    hash_function -> hashed_image_data: hashes image data
+
+    sign_message: Sign Input
+    image_signature: Image Signature
+    image_signature.shape: parallelogram
+
+    camera_privkey -> sign_message: used to sign message
+    hashed_image_data -> sign_message: gets signed
+    sign_message -> image_signature: signature
+
+    image_metadata: Image Metadata {
+        image_signature: Image Signature
+        camera_pubkey: Camera Public Key
+        signed_camera_pubkey: Signed Camera Public Key
+        trusted_keys: Trusted Authority's Public Key
+        
+        image_signature.shape: parallelogram
+        camera_pubkey.shape: parallelogram
+        signed_camera_pubkey.shape: parallelogram
+        trusted_keys.shape: parallelogram
+    }
+
+    image_signature -> image_metadata.image_signature
+    camera_pubkey -> image_metadata.camera_pubkey
+    signed_camera_pubkey -> image_metadata.signed_camera_pubkey
+    trusted_keys -> image_metadata.trusted_keys
+
+    image_metadata -> image: add metadata to image
+    image_data -> image
+
+    image: Image File, With Metadata
+}
+

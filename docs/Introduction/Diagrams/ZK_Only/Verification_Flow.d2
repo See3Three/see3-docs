@@ -1,0 +1,50 @@
+verification_flow: Verification Flow {
+    verification_data: Verification Metadata {
+        zkp: ZK Proof
+        zkp.shape: parallelogram
+
+        authority_pubkey: Trusted Authority's Public Key
+        authority_pubkey.shape: parallelogram
+    }
+
+    image -> verification_data: get from image metadata
+
+    hash_function: Hash Function
+    image -> hash_function: image data
+    hash_function -> inputs.image_hash: hash of image data
+
+    verification_data.zkp -> inputs.zkp
+    verification_data.authority_pubkey -> inputs.authority_pubkey
+
+    inputs : Verifier Inputs {
+        zkp: ZK Proof
+        zkp.shape: parallelogram
+
+        authority_pubkey: Trusted Authority's Public Key
+        authority_pubkey.shape: parallelogram
+
+        image_hash: Hash of Image Data
+        image_hash.shape: parallelogram
+    }
+
+    verify_zkp: Verify ZKP
+    inputs -> verify_zkp
+
+    is_zkp_verified: Did the proof verification succeed?
+    is_zkp_verified.shape: diamond
+
+    verify_zkp -> is_zkp_verified
+
+    success: Image is Verified
+    failure: Image is Not Verified
+
+    success.shape: hexagon
+    failure.shape: hexagon
+
+    success.style.fill: "#afffaf"
+    failure.style.fill: "#ffafaf"
+
+    is_zkp_verified -> success
+    is_zkp_verified -> failure
+}
+

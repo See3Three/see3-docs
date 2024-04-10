@@ -1,0 +1,211 @@
+proving_flow: Proving Flow {
+    in_zk: In ZK Circuit {
+      image_hash: Hash of Image Data
+      image_signature: Image Signature
+      camera_pubkey: Camera Public Key
+      camera_pubkey_signature: Signed Camera Public Key
+      authority_pubkey: Trusted Authority's Public Key
+      keeper_pubkey: Keeper's Public Key
+      ext_enc_camera_pubkey: Encrypted Camera Identifier (Claimed)
+      ext_enc_camera_pubkey.shape: parallelogram
+      ecdh_scalar: ECDH Private Key
+      ecdh_key: ECDH Public Key
+  
+      image_hash.shape: parallelogram
+      image_signature.shape: parallelogram
+      camera_pubkey.shape: parallelogram
+      camera_pubkey_signature.shape: parallelogram
+      authority_pubkey.shape: parallelogram
+      keeper_pubkey.shape: parallelogram
+      ecdh_scalar.shape: parallelogram
+      ecdh_key.shape: parallelogram
+  
+      image_signature.style.fill: "#ffffaf"
+      camera_pubkey.style.fill: "#ffffaf"
+      camera_pubkey_signature.style.fill: "#ffffaf"
+      ecdh_scalar.style.fill: "#ffffaf"
+  
+      is_camera_certified.shape: rectangle
+      is_image_verified.shape: rectangle
+  
+      failed: Proof Failed
+      success: Proof Generated
+  
+      failed.style.fill: "#ffafaf"
+      success.style.fill: "#afffaf"
+  
+      failed.shape: hexagon
+      success.shape: hexagon
+  
+      is_image_verified: Check Signature
+      image_hash -> is_image_verified
+      image_signature -> is_image_verified
+      camera_pubkey -> is_image_verified
+  
+      is_camera_certified: Check Signature
+      camera_pubkey -> is_camera_certified
+      camera_pubkey_signature -> is_camera_certified
+      authority_pubkey -> is_camera_certified
+
+      camera_and_image_certified: Is Camera Certified, AND Is Image Signed By Camera?
+      camera_and_image_certified.shape: diamond
+      is_camera_certified -> camera_and_image_certified: "true or false"
+      is_image_verified -> camera_and_image_certified: "true or false"
+      camera_and_image_certified -> check_camera_identifier: "true"
+      camera_and_image_certified -> failed: "false"
+
+      check_camera_identifier: Is The Reported Camera Identifier Correct?
+      check_camera_identifier.shape: diamond
+      check_camera_identifier -> success: "true"
+      check_camera_identifier -> failed: "false"
+
+      check_ecdh_key: Check ECDH Key
+      check_ecdh_key.shape: diamond
+      check_ecdh_key -> gen_encryption_key: "true"
+      check_ecdh_key -> failed: "false"
+      generated_ecdh_key -> check_ecdh_key
+      ecdh_key -> check_ecdh_key
+  
+      gen_ecdh_key: Generate ECDH Key
+      ecdh_scalar -> gen_ecdh_key: private key
+      gen_ecdh_key -> generated_ecdh_key: public key
+      generated_ecdh_key: Generated ECDH Key
+      generated_ecdh_key.shape: parallelogram
+
+      encryption_key: Encryption Key
+      gen_ecdh_key -> gen_encryption_key
+      keeper_pubkey -> gen_encryption_key
+      gen_encryption_key: Generate Encryption Key
+      gen_encryption_key -> encryption_key
+      encryption_key.shape: parallelogram
+
+      encrypt: Encrypt to Keeper
+      camera_pubkey -> encrypt: gets encrypted
+      keeper_pubkey -> encrypt: encrypted to
+      encryption_key -> encrypt: encrypts
+      encrypt -> enc_camera_pubkey
+
+      enc_camera_pubkey: Encrypted Camera Identifier
+      enc_camera_pubkey.shape: parallelogram
+
+      enc_camera_pubkey -> eq_check
+      ext_enc_camera_pubkey -> eq_check
+
+      eq_check: Check If Inputs Are The Same
+      eq_check -> check_camera_identifier
+    }
+  
+    image: Image, With Metadata (Signature-Only)
+    image.shape: parallelogram
+  
+    hash_function: Hash Function
+  
+    image -> hash_function: image data
+    hash_function -> inputs.image_hash: hash of image data
+  
+    # Get Prover Inputs From Signature-Based Scheme
+    orig_image_metadata: Image Metadata
+    orig_image_metadata -> inputs.image_signature: image signature
+    orig_image_metadata -> inputs.camera_pubkey: camera public key
+    orig_image_metadata -> inputs.camera_pubkey_signature: Signed Camera Public Key
+    orig_image_metadata -> inputs.authority_pubkey: trusted authority public key
+  
+    image -> orig_image_metadata: get image metadata
+
+    # Get Keeper Key, Generate Identifier
+    storage: Prover Storage
+    storage.shape: document
+
+    storage -> keeper_pubkey
+
+    keeper_pubkey: Keeper's Public Key
+    keeper_pubkey.shape: parallelogram
+
+    keeper_pubkey -> inputs.keeper_pubkey
+
+    encrypt: Encrypt to Keeper
+    keeper_pubkey -> encrypt: encrypt to
+    inputs.camera_pubkey -> encrypt: gets encrypted
+    encrypt -> enc_camera_pubkey
+
+    enc_camera_pubkey: Encrypted Camera Identifier (Claimed)
+    enc_camera_pubkey.shape: parallelogram
+
+    enc_camera_pubkey -> inputs.ext_enc_camera_pubkey
+
+    random_keypair_generator: Random Keypair Generator
+    random_keypair_generator -> inputs.ecdh_scalar
+    random_keypair_generator -> inputs.ecdh_key
+
+    inputs: Inputs {
+      # Private Inputs
+      image_signature: Image Signature
+      camera_pubkey: Camera Public Key
+      camera_pubkey_signature: Signed Camera Public Key
+  
+      image_signature.shape: parallelogram
+      camera_pubkey.shape: parallelogram
+      camera_pubkey_signature.shape: parallelogram
+  
+      image_signature.style.fill: "#ffffaf"
+      camera_pubkey.style.fill: "#ffffaf"
+      camera_pubkey_signature.style.fill: "#ffffaf"
+  
+      # Public Inputs
+      image_hash: Hash of Image Data
+      authority_pubkey: Trusted Authority's Public Key
+  
+      image_hash.shape: parallelogram
+      authority_pubkey.shape: parallelogram
+
+      # Pre-Known Public Inputs
+      keeper_pubkey: Keeper's Public Key
+      keeper_pubkey.shape: parallelogram
+
+      # Generated Public Inputs
+      ext_enc_camera_pubkey: Encryped Camera Identifier (Claimed)
+      ext_enc_camera_pubkey.shape: parallelogram
+
+      # Something
+      ecdh_scalar: ECDH Private Key
+      ecdh_key: ECDH Public Key
+      ecdh_scalar.shape: parallelogram
+      ecdh_key.shape: parallelogram
+      ecdh_scalar.style.fill: "#ffffaf"
+    }
+  
+    inputs.image_hash -> in_zk.image_hash
+    inputs.image_signature -> in_zk.image_signature
+    inputs.camera_pubkey -> in_zk.camera_pubkey
+    inputs.camera_pubkey_signature -> in_zk.camera_pubkey_signature
+    inputs.authority_pubkey -> in_zk.authority_pubkey
+    inputs.keeper_pubkey -> in_zk.keeper_pubkey
+    inputs.ext_enc_camera_pubkey -> in_zk.ext_enc_camera_pubkey
+    inputs.ecdh_scalar -> in_zk.ecdh_scalar
+    inputs.ecdh_key -> in_zk.ecdh_key
+  
+    verification_data: Verification Metadata {
+      zkp: ZK Proof
+      zkp.shape: parallelogram
+  
+      authority_pubkey: Trusted Authority's Public Key
+      authority_pubkey.shape: parallelogram
+
+      ext_enc_camera_pubkey: Encryped Camera Identifier (Claimed)
+      ext_enc_camera_pubkey.shape: parallelogram
+
+      ecdh_key: ECDH Public Key
+      ecdh_key.shape: parallelogram
+    }
+    
+    inputs.authority_pubkey -> verification_data.authority_pubkey
+    in_zk -> verification_data.zkp
+    inputs.ext_enc_camera_pubkey -> verification_data.ext_enc_camera_pubkey
+    inputs.ecdh_key -> verification_data.ecdh_key
+
+    new_image: Image, With Proof
+    new_image.shape: parallelogram
+  
+    verification_data -> new_image: add metadata
+    image -> new_image: image data
+  }

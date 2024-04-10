@@ -1,0 +1,60 @@
+blacklist_query: Add To Blacklist {
+    query: Entry to Blacklist {
+        ecdh_pubkey: ECDH Public Key
+        ecdh_pubkey.shape: parallelogram
+
+        encryption_iv: Encryption IV
+        encryption_iv.shape: parallelogram
+
+        enc_camera_pubkey: Encrypted Camera Identifier
+        enc_camera_pubkey.shape: parallelogram
+        
+    }
+
+    keeper_storage: Keeper's Storage
+    keeper_storage.shape: document
+
+    keeper_storage -> keeper_privkey
+
+    keeper_blacklist: The Blacklist
+    keeper_blacklist.shape: document
+
+    keeper_storage -> keeper_blacklist
+
+    keeper_privkey: Keeper's Private Key
+    keeper_privkey.shape: parallelogram
+
+    scalar_mul: Scalar Multiplication
+    keeper_privkey -> scalar_mul
+    query.ecdh_pubkey -> scalar_mul
+    scalar_mul -> shared_secret
+
+    shared_secret: Shared Secret
+    shared_secret.shape: parallelogram
+
+    shared_secret -> decrypt
+    query.enc_camera_pubkey -> decrypt
+    query.encryption_iv -> decrypt
+
+    decrypt: Decrypt Message
+    decrypt -> camera_pubkey
+
+    camera_pubkey: Camera's Public Key
+    camera_pubkey.shape: parallelogram
+
+    add_to_blacklist: Add Camera To Blacklist
+
+    keeper_blacklist -> add_to_blacklist
+    camera_pubkey -> add_to_blacklist
+
+    add_to_blacklist -> new_blacklist
+
+    new_blacklist: New Blacklist
+    new_blacklist.shape: document
+
+    new_blacklist -> keeper_storage: replace old blacklist with new {
+        style: {
+          stroke-dash: 3
+        }
+    }
+}

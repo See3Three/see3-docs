@@ -1,0 +1,85 @@
+verification_flow: Verification Flow {
+    verification_data: Verification Metadata {
+        zkp: ZK Proof
+        zkp.shape: parallelogram
+
+        authority_pubkey: Trusted Authority's Public Key
+        authority_pubkey.shape: parallelogram
+
+        enc_camera_pubkey: Encrypted Camera Identifier (Claimed)
+        enc_camera_pubkey.shape: parallelogram
+
+        keeper_pubkey: Keeper's Public Key
+        keeper_pubkey.shape: parallelogram
+
+        ecdh_key: ECDH Public Key
+        ecdh_key.shape: parallelogram
+    }
+
+    image -> verification_data: get from image metadata
+
+    hash_function: Hash Function
+    image -> hash_function: image data
+    hash_function -> inputs.image_hash: hash of image data
+
+    verification_data.zkp -> inputs.zkp
+    verification_data.authority_pubkey -> inputs.authority_pubkey
+    verification_data.enc_camera_pubkey -> inputs.enc_camera_pubkey
+    verification_data.keeper_pubkey -> inputs.keeper_pubkey
+    verification_data.ecdh_key -> inputs.ecdh_key
+
+    verification_data.keeper_pubkey -> check_keeper_correct
+
+    storage: Prover Storage
+    storage.shape: document
+
+    storage -> check_keeper_correct
+
+    check_keeper_correct: Check if Keeper is Trusted
+    check_keeper_correct -> is_keeper_correct: "true or false"
+    
+    is_keeper_correct: Is The Keeper Trusted AND ZKP Verified?
+    is_keeper_correct.shape: diamond
+
+    inputs : Verifier Inputs {
+        zkp: ZK Proof
+        zkp.shape: parallelogram
+
+        authority_pubkey: Trusted Authority's Public Key
+        authority_pubkey.shape: parallelogram
+
+        image_hash: Hash of Image Data
+        image_hash.shape: parallelogram
+
+        enc_camera_pubkey: Encrypted Camera Identifier (Claimed)
+        enc_camera_pubkey.shape: parallelogram
+
+        keeper_pubkey: Keeper's Public Key
+        keeper_pubkey.shape: parallelogram
+
+        ecdh_key: ECDH Public Key
+        ecdh_key.shape: parallelogram
+    }
+
+    verify_zkp: Verify ZKP
+    inputs -> verify_zkp
+
+    is_zkp_verified: Did the proof verification succeed?
+    is_zkp_verified.shape: diamond
+
+    verify_zkp -> is_zkp_verified
+
+    success: Image is Verified
+    failure: Image is Not Verified
+
+    success.shape: hexagon
+    failure.shape: hexagon
+
+    success.style.fill: "#afffaf"
+    failure.style.fill: "#ffafaf"
+
+    is_zkp_verified -> is_keeper_correct: "true or false"
+    is_keeper_correct -> success
+    is_keeper_correct -> failure
+    is_zkp_verified -> failure
+}

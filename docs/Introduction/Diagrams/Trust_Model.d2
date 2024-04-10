@@ -1,0 +1,18 @@
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+trust_model: Trust Model {
+  authority: Trusted Authority (i.e., Camera Manufacturer)
+  camera: Camera
+  user: User (Verifier)
+  image: Image
+
+  authority -> camera: "certifies"
+  camera <- image: "captured by"
+  user -> authority: "trusts"
+
+  user -> image: "trusts, by verifying the chain"
+}

@@ -1,0 +1,59 @@
+blacklist_query: Blacklist Query {
+    keeper: Keeper
+    keeper.shape: person
+    keeper.style.fill: "#afafff"
+
+    user: User
+    user.shape: person
+    user.style.fill: "#afafff"
+
+    image: Image, With Metadata
+    image.shape: parallelogram
+
+    image -> image_metadata: get metadata
+
+    image_metadata: Image Metadata {
+        ecdh_pubkey: ECDH Public Key
+        ecdh_pubkey.shape: parallelogram
+
+        encryption_iv: Encryption IV
+        encryption_iv.shape: parallelogram
+
+        enc_camera_pubkey: Encrypted Camera Identifier
+        enc_camera_pubkey.shape: parallelogram
+
+        keeper_pubkey: Keeper's Public Key
+        keeper_pubkey.shape: parallelogram
+        
+        zkp: ZK Proof
+        zkp.shape: parallelogram
+
+        authority_pubkey: Trusted Authority's Public Key
+        authority_pubkey.shape: parallelogram
+    }
+
+    query: Query to Blacklist {
+        ecdh_pubkey: ECDH Public Key
+        ecdh_pubkey.shape: parallelogram
+
+        encryption_iv: Encryption IV
+        encryption_iv.shape: parallelogram
+
+        enc_camera_pubkey: Encrypted Camera Identifier
+        enc_camera_pubkey.shape: parallelogram
+        
+    }
+
+    image_metadata.ecdh_pubkey -> query.ecdh_pubkey
+    image_metadata.encryption_iv -> query.encryption_iv
+    image_metadata.enc_camera_pubkey -> query.enc_camera_pubkey
+
+    query -> keeper: ask if camera is blacklisted
+    keeper -> user: "true or false"
+
+    image_metadata.keeper_pubkey -> keeper: identifies {
+        style: {
+            stroke-dash: 3
+        }
+    }
+}

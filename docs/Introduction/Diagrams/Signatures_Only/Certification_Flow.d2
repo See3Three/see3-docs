@@ -1,0 +1,45 @@
+in_factory: At Time of Manufacture {
+    camera: Camera
+    camera.shape: circle
+    camera.style.fill: "#afafff"
+
+    camera_storage: Camera Storage
+    camera_storage.shape: document
+
+    gen_keys: Generate Keys
+    camera_pubkey: Camera Public Key
+    camera_privkey: Camera Private Key
+
+    camera_pubkey.shape: parallelogram
+    camera_privkey.shape: parallelogram
+    
+    camera_privkey.style.fill: "#FFD7AF"
+
+    camera -> gen_keys: generates keys
+    gen_keys -> camera_pubkey
+    gen_keys -> camera_privkey
+
+    camera_pubkey -> camera_storage: stores its public key
+    camera_privkey -> camera_storage: stores its private key
+
+    trusted_authority: Trusted Authority
+    trusted_authority.shape: person
+    trusted_authority.style.fill: "#afafff"
+
+    sign_with_trustkeys: Sign With Trusted Keys
+    signed_camera_pubkey: Signed Camera Public Key
+    signed_camera_pubkey.shape: parallelogram
+
+    trusted_keys: Trusted Authority's Public Key
+    trusted_keys.shape: parallelogram
+
+    trusted_authority -> trusted_keys
+    trusted_keys -> camera_storage: stores
+
+    camera_pubkey -> trusted_authority
+    trusted_authority -> sign_with_trustkeys: signs camera public key
+    sign_with_trustkeys -> signed_camera_pubkey
+    signed_camera_pubkey -> camera_storage: stores signed camera public key
+
+    camera_storage -> camera
+}

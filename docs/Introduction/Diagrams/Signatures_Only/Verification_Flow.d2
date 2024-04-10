@@ -1,0 +1,70 @@
+verification_flow: Verification Flow {
+  image: Image, With Metadata
+
+  verification_data: Image Metadata {
+    image_signature: Image Signature
+    camera_pubkey: Camera Public Key
+    camera_pubkey_signature: Signed Camera Public Key
+    authority_pubkey: Trusted Authority's Public Key
+
+    image_signature.shape: parallelogram
+    camera_pubkey.shape: parallelogram
+    camera_pubkey_signature.shape: parallelogram
+    authority_pubkey.shape: parallelogram
+  }
+
+  image -> verification_data: get from image metadata
+
+  hash_function: Hash Function
+  image -> hash_function: image data
+  hash_function -> verifier.image_hash: hash of image data
+
+  verification_data.image_signature -> verifier.image_signature
+  verification_data.camera_pubkey -> verifier.camera_pubkey
+  verification_data.camera_pubkey_signature -> verifier.camera_pubkey_signature
+  verification_data.authority_pubkey -> verifier.authority_pubkey
+
+  verifier: Verifier {
+    image_hash: Hash of Image Data
+    image_signature: Image Signature
+    camera_pubkey: Camera Public Key
+    camera_pubkey_signature: Signed Camera Public Key
+    authority_pubkey: Trusted Authority's Public Key
+
+    image_hash.shape: parallelogram
+    image_signature.shape: parallelogram
+    camera_pubkey.shape: parallelogram
+    camera_pubkey_signature.shape: parallelogram
+    authority_pubkey.shape: parallelogram
+
+    is_camera_certified.shape: rectangle
+    is_image_verified.shape: rectangle
+
+    failed: Image Not Verified
+    success: Image Verified
+
+    failed.style.fill: "#ffafaf"
+    success.style.fill: "#afffaf"
+
+    failed.shape: hexagon
+    success.shape: hexagon
+
+    is_image_verified: Check Signature
+    image_hash -> is_image_verified
+    image_signature -> is_image_verified
+    camera_pubkey -> is_image_verified
+
+    is_camera_certified: Check Signature
+    camera_pubkey -> is_camera_certified
+    camera_pubkey_signature -> is_camera_certified
+    authority_pubkey -> is_camera_certified
+
+    camera_and_image_certified: Is Camera Certified, AND Is Image Signed By Camera?
+    camera_and_image_certified.shape: diamond
+    is_camera_certified -> camera_and_image_certified: true or false
+    is_image_verified -> camera_and_image_certified: true or false
+    camera_and_image_certified -> success: "true"
+
+    camera_and_image_certified -> failed: "false"
+  }
+}
