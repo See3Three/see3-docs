@@ -37,7 +37,7 @@ This TypeScript module contains functions for generating cryptographic attestati
    - **Purpose**: Generates an attestation for a given input file using the camera's private key, the TA's public key, and the TA's certificate.
    - **Parameters**:
      - `input: File` - The input file to be attested.
-     - `capture_device_data: CaptureDeviceData` - An object containing the necessary data for the attestation process.
+     - `captureDeviceData: CaptureDeviceData` - An object containing the necessary data for the attestation process.
    - **Returns**: A promise that resolves to a `See3Attestation` object if the attestation is successfully generated, or `null` if an error occurs.
    - **Process**:
      - Utilizes the `proveAttestation` function to generate the attestation.

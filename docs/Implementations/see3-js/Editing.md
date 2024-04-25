@@ -1,12 +1,12 @@
 ### `generateImageCropProof` Function
 
-Generates a cryptographic proof for an image crop operation and returns the cropped image file along with the proof. This function handles the entire process from converting the image file to bytes, generating cryptographic hashes, setting up cryptographic circuits, and generating zero-knowledge proofs.
+Generates a cryptographic proof for an image crop operation and returns the cropped image file along with the proof. This function manages the entire process from converting the image file to bytes, generating cryptographic hashes, setting up cryptographic circuits, and generating zero-knowledge proofs.
 
 #### Parameters
 
 - `imageFile: File` - The original image file.
 - `cropInput: CropInput` - The input parameters for the crop operation.
-- `fromManifest: ManifestName` - The manifest name from which the image originates.
+- `fromManifest: ManifestName` - The manifest name from which the image originates, validated against `ManifestNameSchema`.
 
 #### Returns
 
