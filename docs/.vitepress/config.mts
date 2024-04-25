@@ -33,8 +33,7 @@ export default defineConfig({
             { text: 'Setup', link: '/Implementations/see3-js/Setup' },
             { text: 'Verifying', link: '/Implementations/see3-js/Verifying' },
             { text: 'Proving', link: '/Implementations/see3-js/Proving' },
-            { text: 'Editing', link: '/Implementations/see3-js/Editing' },
-            { text: 'Extras', link: '/Implementations/see3-js/Extras' }
+            { text: 'Editing', link: '/Implementations/see3-js/Editing' }
           ]},
           { text: 'Mayor', items: [
             { text: 'Usage', link: '/Implementations/mayor/Usage' }
