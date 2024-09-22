@@ -28,22 +28,9 @@ export default defineConfig({
       {
         text: 'Implementations',
         items: [
-          { text: 'see3-js', items: [
+          { text: 'see3_python', items: [
             { text: 'Overview', link: '/Implementations/see3-js/Overview' },
-            { text: 'Setup', link: '/Implementations/see3-js/Setup' },
-            { text: 'Verifying', link: '/Implementations/see3-js/Verifying' },
-            { text: 'Proving', link: '/Implementations/see3-js/Proving' },
-            { text: 'Editing', link: '/Implementations/see3-js/Editing' }
-          ]},
-          { text: 'Mayor', items: [
-            { text: 'Usage', link: '/Implementations/mayor/Usage' }
-          ]},
-          { text: 'Wink', items: [
-            { text: 'Overview', link: '/Implementations/wink/Overview' },
-            { text: 'Usage', link: '/Implementations/wink/Usage' }
-          ]},
-          { text: 'Gov\'nor', items: [
-            { text: 'Overview', link: '/Implementations/Govnor/Overview' }
+            { text: 'Specifications', link: '/Implementations/see3-js/Library' },
           ]},
         ]
       },

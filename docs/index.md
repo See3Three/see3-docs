@@ -3,26 +3,19 @@ layout: home
 
 hero:
   name: "See3 Documentation"
-  tagline: "Next-Gen Authenticity Tech For Digital Media"
+  tagline: "Tools for Provably Real Media"
   actions:
     - theme: brand
       text: "Read Introduction"
       link: /Introduction/Introduction
     - theme: alt
-      text: "Read Specification"
-      link: /Specification/Specification
-    - theme: alt
       text: "Use see3-js (alpha)"
       link: /Implementations/see3-js/Overview
 
 features:
-  - title: "see3-js"
-    details: "A JavaScript library for creating, embedding and verifying cryptographic proofs in digital media. It lets you integrate content security tech seamlessly into web and mobile applications."
-  - title: "Wink"
-    details: "An React Native demo app that utilizes see3-js for capturing and verifying authenticated images. It demonstrates how to implement See3 technology in mobile apps."
-  - title: "Mayor"
-    details: "Mayor enables trusted developers to automatically issue trust certificates to hardware-attested devices, including mobile devices, for use with see3-js."
-  - title: "Gov'nor"
-    details: "The central governance system of See3, which maintains the integrity and trustworthiness of the entire See3 ecosystem. It plays a crucial role in enforcing security standards and operational protocols."
+  - title: "see3_python"
+    details: "A Python library for our anonymous Cryptographic Descriptors. Everything you need to generate, use and manage privacy-preserving identities. Media-related features coming soon."
+  - title: "Realcaster"
+    details: "A Twitter alternative featuring 100% provably real content. Uses Farcaster in tandem with see3_react_native."
 
 ---

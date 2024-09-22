@@ -1,5 +1,91 @@
 # How See3 Works
 
+Achieving provably-real images required a way to verify the origin of images without exposing the photographer’s identity. However, existing techniques weren’t privacy-preserving, couldn’t scale, or lacked essential features needed for moderation.
+
+We created cryptographic descriptors to fill this gap.
+
+## How Does This Work?
+
+Metadata is crucial for establishing trust online, but features no cryptographic protection by default. Digital signatures are often employed to ensure the correctness and origin of this metadata; without them, it would be easy to forge or alter the information. However, digital signatures require you to know and trust the author's public identity (key), which isn't always practical or desirable, especially when privacy is a concern.
+
+Cryptographic descriptors address these issues by redefining how metadata is authenticated. Instead of relying on individual authors to generate and sign the metadata, trust is placed in a central authority that verifies the information (metadata) associated with data's origin and creates a reusable descriptor for it. This metadata can contain a person's name and age, the serial number of a device, or anything else — it's possible for the data to have a non-human origin.
+
+When someone requests a descriptor, they suggest exactly what their metadata should contain and provide evidence that this information is correct to the central authority. The authority then evaluates this information to decide whether to issue a descriptor and what content it should reference. This process is entirely programmable, enabling you to easily adapt cryptographic descriptors for any context.
+
+Authors have the freedom to disclose parts of their metadata and hide others when certifying their data — only necessary information is shared. This enables verifiers to authenticate the data using valid, centrally-approved metadata without deanonymizing the author. This allows, for instance, a freelancer to reveal their verified qualifications to a client without exposing their name.
+
+## Ensuring The Devices Only Submit Real Images
+
+When an image features a See3 Cryptographic Descriptor, the user can be sure of the following:
+
+- The image was captured using an approved application on a verified device.
+- The approved application confirms the image is real.
+- The image has not been altered since it was taken.
+
+Application developers that implement the See3 SDK will issue cryptographic descriptors only to verified devices running an authentic copy of their application. These devices use secure hardware environments to protect cryptographic information, ensuring that only verified code can bind descriptors to images.
+
+This relies on the honesty of the application developer, as well as the ability for Android and iOS devices to perform *remote attestation*. Remote Attestation enables the application developer to know know that the image was captured using an approved application on a verified device. This is made possible by the device's secure enclave, which can produce signed cryptographic reports which testify to the state of the device.
+
+## Balancing Privacy With Accountability
+
+Cryptographic descriptors offer indistinguishability. This means that, even with multiple examples certified by some cryptographic descriptor, there's no way to tell which ones came from the same descriptor and which didn't. This level of anonymity surpasses pseudonyms such as public keys, ensuring users can remain truly anonymous if they choose to.
+
+Yet, cryptographic descriptors also address the need for holding malicious parties accountable. In situations where it's necessary — for example, for regulatory compliance — a majority of trusted moderators can work together to reveal the descriptor's unique identifier, needing only a single example of falsely certified data.
+
+If misuse is detected, such as a hacked device using Realcaster to post misleading images, the trusted moderators will recover the descriptor's identifier and use it to revoke the descriptor. This renders the cryptographic descriptor invalid — it can't be used again.
+
+With advanced cryptographic tools, it's even possible to issue cryptographic descriptors without revealing the author's information to the central authority itself. This preserves author privacy during the issuance process, making cryptographic descriptors particularly suitable for applications which require compliance with stringent data-protection regulations.
+
+## How We Maintain Trust And Decentralisation
+
+Establishing corruption-resistance is crucial, especially in sensitive scenarios like whistleblowing. Imagine a whistleblower exposing wrongdoing within their organization — it's vital that their identity remains confidential, even from their own employer. We achieve this by distributing the roles of issuing descriptors, revoking descriptors, and accessing the identities behind them among independent entities.
+
+An employer can operate without the ability to infer the employee's (author's) identity from an example of data, even if they're responsible for issuing and revoking cryptographic descriptors for their employees. Under these circumstances, the connection between the descriptor's usage and the individual's identity remains effectively concealed and the ability to recover the user's identity is delegated to some trusted third party, such as an auditor.
+
+If it's ever necessary to uncover the identity behind a descriptor — such as in cases of criminal investigation or when mandated by a court order — the trusted third party can step in. This neutral entity has the capability to map a used descriptor back to an identity but only under controlled or legally sanctioned circumstances.
+
+Additionally, each entity can employ optional multi-party computation (MPC), which ensures that no single participant has access to sensitive information. Instead, they jointly compute over encrypted data without the ability to inspect its contents. Even if a server is compromised, the system remains secure because critical operations require collaboration.
+
+## The See3 TrustCouncil
+
+The capability to recover the device identifier from an example of an image, as well as the ability to revoke devices from a system, may be implemented using the See3 Impartial Misinformation Committee. This committee will play a crucial role in flagging misleading images and mitigating cyber-attacks which compromise legitimate devices to post fraudulent images. 
+
+By delegating the responsibility of identifying and revoking fraudulent content to an impartial committee, we ensure that accountability is maintained without compromising the privacy of honest users. This approach reconciles the need for effective content moderation with the protection of individual privacy.
+
+We look forward to sharing further details over the coming weeks.
+
+## Scalability
+
+We designed cryptographic descriptors to be efficient and scalable, so they work well even when used on a large scale. Here's what that means:
+
+- **Small Size**: Each descriptor is about 520 bytes when bound to data. This keeps storage and transmission requirements low.
+- **Fast Processing**: Creating a signature on data takes about 50 milliseconds, and verifying a descriptor takes around 20 milliseconds. This means operations happen quickly, without noticeable delays.
+- **Quick Issuance**: Descriptors can be issued in less than a second, making them practical for real-time applications.
+- **Efficient Revocation**: The system can handle up to 10,000 revocations per second. This ensures that updates to the list of invalid descriptors happen promptly.
+
+## It Works Offline
+
+Cryptographic descriptors are built to function effectively both online and offline. In an online context, verifiers can quickly check the status of descriptors, ensuring they haven't been revoked. In offline scenarios, verifiers can still trust the validity of descriptors based on the last known status, thanks to timestamps included within the descriptors.
+
+The timestamp indicates when the descriptor was last updated, providing assurance that the author was in good standing at that time. Once connectivity is restored, any updates — including revocations — can be processed to maintain overall system integrity.
+
+## The Underlying Cryptography
+
+Cryptographic descriptors are implemented using a variant of anonymous credentials called BBS, in tandem with a cryptographic accumulator.
+
+We look forward to offering mathematical details soon!
+
+
+---
+
+::: warning Important Note
+
+We've recently revamped the way that See3 works to use our in-house Cryptographic Descriptors. They're instantaneous, feature improved privacy, and are far more flexible.
+
+This part of the article reflects the way that See3 worked in the past. We'll update the article shortly to reflect the recent changes.
+
+:::
+
 ## The Trust Model
 
 The following describes the trust model for most hardware-attested content schemes, including our own.
