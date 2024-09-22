@@ -9,8 +9,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Introduction', link: '/Introduction/Introduction' },
-      { text: 'Specification', link: '/Specification/Specification' },
-      { text: 'Implementations', link: '/Implementations/see3-js/Setup' }
+      { text: 'Implementations', link: '/Implementations/see3-python/Overview' }
     ],
 
     sidebar: [
@@ -24,13 +23,12 @@ export default defineConfig({
           { text: 'Roadmap and FAQ', link: '/Introduction/Beyond' }
         ]
       },
-      { text: 'Specification', link: '/Specification/Specification' },
       {
         text: 'Implementations',
         items: [
           { text: 'see3_python', items: [
-            { text: 'Overview', link: '/Implementations/see3-js/Overview' },
-            { text: 'Specifications', link: '/Implementations/see3-js/Library' },
+            { text: 'Overview', link: '/Implementations/see3-python/Overview' },
+            { text: 'Details', link: '/Implementations/see3-python/Library' },
           ]},
         ]
       },

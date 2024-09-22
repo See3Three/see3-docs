@@ -9,8 +9,8 @@ hero:
       text: "Read Introduction"
       link: /Introduction/Introduction
     - theme: alt
-      text: "Use see3-js (alpha)"
-      link: /Implementations/see3-js/Overview
+      text: "Use see3-python (alpha)"
+      link: /Implementations/see3-python/Overview
 
 features:
   - title: "see3_python"
