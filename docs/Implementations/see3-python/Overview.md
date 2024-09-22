@@ -98,4 +98,4 @@ We understand that there will be many different applications for anonymous crede
 
 #### Give Me An Example
 
-We recommend that you look at the [example script conditional](examples/test_script.py). It's designed to be super simple.
+We recommend that you look at the [example script conditional](https://github.com/VeracityLabs/see3_python/tree/master/examples/test_script.py). It's designed to be super simple.
