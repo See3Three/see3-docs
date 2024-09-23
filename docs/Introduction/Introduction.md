@@ -58,15 +58,16 @@ const tableData = [
   }
 ]
 
-
 import { useData } from 'vitepress'
+import { computed } from 'vue'
+
 const { isDark } = useData()
 
-const getCellClass = (value) => {
+const getCellClass = computed(() => (value) => {
   if (value === "Yes") return isDark.value ? 'bg-green-800' : 'bg-green-100'
   if (value === "No") return isDark.value ? 'bg-red-800' : 'bg-red-100'
   return isDark.value ? 'bg-yellow-800' : 'bg-yellow-100'
-}
+})
 </script>
 
 # See3 Is A Solution To Malicious Deepfakes
