@@ -25,7 +25,7 @@ When an image bears a See3 Certification, the user can be sure of the following:
 
 Sharing identifiable information about the camera device is strictly optional -- See3 is fully anonymous by default.
 
-Here's how it works:
+### Step-By-Step Outline
 
 1. Your device must register with a See3 Operator (SO). The SO uses hardware checks to verify that your device is genuine and will behave honestly.
 2. If your device passes all security checks, the SO issues it a unique "cryptographic descriptor", which it will store securely and keep secret.
@@ -58,8 +58,7 @@ Remote attestation gives the SO cryptographic evidence of:
 - **Device Integrity**: Confirmation that the device hardware is genuine and hasn't been tampered with.
 - **Operating System State**: Assurance that the device is running an unmodified, secure version of the OS.
 - **Application Authenticity**: Verification that the application is the approved, untampered version.
-- **Secure Boot State**: Confirmation that the device booted securely, indicating that the bootloader and system firmware are uncompromised.
-- **App ID and Device Platform**: Identification of the specific application and platform in use.
+- **Secure Boot State**: Confirmation that the bootloader and system firmware are uncompromised.
 
 #### The Vetting Process Step-by-Step
 
@@ -86,7 +85,7 @@ The See3 Operator (SO) ensures that devices cannot misuse their ability to certi
 
 2. **Secure Hardware Environments and Secure Boot**
 
-   - **Secure Enclaves/Trusted Execution Environments (TEEs)**: Devices utilize secure hardware components that provide a protected space for sensitive operations and data storage.
+   - **Secure Enclaves**: Devices utilize secure hardware components that provide a protected space for sensitive operations and data storage.
      - **Secure Storage of Descriptors**: The cryptographic descriptor is stored within this secure environment, making it inaccessible to unauthorized code or applications.
    - **Secure Boot Verification**: The device verifies its own integrity during startup, ensuring it hasn't been tampered with at a fundamental level.
    - **Result**: Secure hardware and secure boot processes guarantee that the device operates in a trusted state, preventing attackers from compromising the system to misuse the credential.

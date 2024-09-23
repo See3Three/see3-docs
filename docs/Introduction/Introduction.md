@@ -58,10 +58,14 @@ const tableData = [
   }
 ]
 
+
+import { useData } from 'vitepress'
+const { isDark } = useData()
+
 const getCellClass = (value) => {
-  if (value === "Yes") return 'bg-green-200 dark:bg-green-800'
-  if (value === "No") return 'bg-red-200 dark:bg-red-800'
-  return 'bg-yellow-200 dark:bg-yellow-800'
+  if (value === "Yes") return isDark.value ? 'bg-green-800' : 'bg-green-100'
+  if (value === "No") return isDark.value ? 'bg-red-800' : 'bg-red-100'
+  return isDark.value ? 'bg-yellow-800' : 'bg-yellow-100'
 }
 </script>
 
@@ -90,23 +94,23 @@ It works smoothly on mobile devices. We also offer desktop and web SDKs for veri
 
 ### Comparison Table
 
-<table class="table-auto w-full text-left border-collapse border border-gray-300 dark:border-gray-700">
+<table class="table-auto w-full text-left border-collapse" :class="{ 'border-gray-300': !isDark, 'border-gray-700': isDark }">
   <thead>
     <tr>
-      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5"></th>
-      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">See3</th>
-      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">AI Detection</th>
-      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">C2PA</th>
-      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">Watermarking</th>
+      <th class="px-4 py-2 w-1/5" :class="{ 'border-gray-300': !isDark, 'border-gray-700': isDark }"></th>
+      <th class="px-4 py-2 w-1/5" :class="{ 'border-gray-300': !isDark, 'border-gray-700': isDark }">See3</th>
+      <th class="px-4 py-2 w-1/5" :class="{ 'border-gray-300': !isDark, 'border-gray-700': isDark }">AI Detection</th>
+      <th class="px-4 py-2 w-1/5" :class="{ 'border-gray-300': !isDark, 'border-gray-700': isDark }">C2PA</th>
+      <th class="px-4 py-2 w-1/5" :class="{ 'border-gray-300': !isDark, 'border-gray-700': isDark }">Watermarking</th>
     </tr>
   </thead>
   <tbody>
     <tr v-for="row in tableData" :key="row.feature">
-      <td class="border border-gray-300 dark:border-gray-700 px-4 py-2">{{ row.feature }}</td>
-      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.see3)]">{{ row.see3 }}</td>
-      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.aiDetection)]">{{ row.aiDetection }}</td>
-      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.c2pa)]">{{ row.c2pa }}</td>
-      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.watermarking)]">{{ row.watermarking }}</td>
+      <td class="px-4 py-2" :class="{ 'border-gray-300': !isDark, 'border-gray-700': isDark }">{{ row.feature }}</td>
+      <td :class="['px-4 py-2', getCellClass(row.see3), { 'border-gray-300': !isDark, 'border-gray-700': isDark }]">{{ row.see3 }}</td>
+      <td :class="['px-4 py-2', getCellClass(row.aiDetection), { 'border-gray-300': !isDark, 'border-gray-700': isDark }]">{{ row.aiDetection }}</td>
+      <td :class="['px-4 py-2', getCellClass(row.c2pa), { 'border-gray-300': !isDark, 'border-gray-700': isDark }]">{{ row.c2pa }}</td>
+      <td :class="['px-4 py-2', getCellClass(row.watermarking), { 'border-gray-300': !isDark, 'border-gray-700': isDark }]">{{ row.watermarking }}</td>
     </tr>
   </tbody>
 </table>
@@ -115,9 +119,11 @@ It works smoothly on mobile devices. We also offer desktop and web SDKs for veri
 
 We've explained why C2PA is a massive liability to anyone who wishes to integrate it through a series of blogs. The problem mostly comes down to its lack of privacy.
 
+We summarize the key points in this introduction, [click here to skip to it.](./Motivation.md#see3-is-the-only-sound-approach)
+
 The links to these blogs are as follows.
 
-- [C2PA Is An American Surveillance Network, And The EU WIll Ban It.](https://veracity-labs.medium.com/c2pa-is-an-american-surveillance-network-b523c5457cc3)
+- [C2PA Is An American Surveillance Network, And The EU Will Ban It.](https://veracity-labs.medium.com/c2pa-is-an-american-surveillance-network-b523c5457cc3)
 
 ## What Does The Reference Implementation Include?
 

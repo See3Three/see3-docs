@@ -1,20 +1,39 @@
 # Why, and How?
 
-On the 23rd of January, an AI-generated voice message falsely claiming to be President Biden discouraged Democrats from voting in the 2024 primary. Barely a week later, a finance worker lost $25 million to scammers through a deepfake video call mimicking his colleagues. On X, meanwhile, an AI-generated image of an explosion at the US Pentagon caused the the Dow Jones Industrial Average to drop 80 points. These incidents, all taking place in the first two months of 2024, are only a subset of the diverse and damaging impact deepfakes have across politics, finance, and social media.
+On January 23, an AI-generated voice message falsely claiming to be President Biden discouraged Democrats from voting in the 2024 primary. A week later, a finance worker lost $25 million to scammers using a deepfake video call. Meanwhile, an AI-generated image of an explosion at the Pentagon caused a significant drop in the Dow Jones Industrial Average. These incidents highlight the damaging impact deepfakes across various sectors, including politics, finance, and social media.
 
-## The Lack of Alternative Solutions
+## How See3 Makes A Difference
 
-Forgeries were easily detectable by eye, but now, deepfakes make it easy and cheap to create images almost indistinguishable from real photos. For example, the website “OnlyFake” uses deepfake technology to generate realistic photos of fake IDs in minutes for just $15. The photos have been used to bypass the anti-fraud safeguards, known as
-Know-Your-Customer (KYC), on OKX (a crypto exchange). In the case of OKX, the deepfake IDs fooled their staff, who are trained to spot doctored images and deepfakes. This highlights that it is no longer possible to detect deepfake-based fraud by eye, even for professionals.
+The proliferation of deepfakes poses risks not just to individuals but to societal trust as a whole. Reliable image certification can protect vulnerable communities, journalists, and whistleblowers from exploitation and misinformation.
 
-Some proposed solutions involve detecting malicious deepfakes once they’re in the wild, instead of preventing their creation. Unfortunately, deepfake-detecting AI models (such as those deployed by OpenAI) are becoming obsolete due to inaccuracies, thus this category of solutions is not viable. Although deepfake detection methods have become more sophisticated, the techniques for creating deepfakes are becoming more sophisticated at a faster rate –- the deepfake detectors are losing the technological arms race. This makes it difficult to identify deepfakes based on the media alone. AI is advanced enough to create fake footage so realistic AI itself cannot determine its inaccuracy.
+**Commercial Applications**: 
+- **Media and Journalism**: Authenticating news footage to prevent the spread of false information.
+- **Finance**: Verifying identities in transactions to combat fraud.
+- **Healthcare**: Ensuring the integrity of medical images and data.
+- **Legal**: Certifying evidence presented in court.
+- **Social Media**: Enabling platforms to identify and mitigate misleading content quickly.
 
-Other solutions involve watermarks, used to identify deepfakes at the point-of-viewing. They can often be removed or forged with easy-to-use tools, thereby bypassing any watermark-based anti-deepfake solutions. They can also be removed accidentally: most social media platforms automatically remove them. Updatable watermarks, such as those that use perceptual hashes, are often vulnerable to adversarial attack and are thus low-reliability. The most popular implementation of deepfake watermarking technology is C2PA (by the Coalition for Content Provenance and Authenticity). It is designed to prevent mis-information by tracking where media comes from and storing this information in the media metadata. Unfortunately, C2PA metadata is easy to remove and will not be included on self-generated deepfakes. Additionally, it does not support the full cryptographic verification of edits to the image, which may lead to image forgeries; and suffers features severe privacy issues, which are referenced in the next section.
+See3 scrubs sensitive information using zero-knowledge proofs, protecting user identities without inhibiting a platform's ability to perform moderation in case somebody misbehaves. This balance between privacy and accountability is crucial for maintaining trust in digital media.
 
-## Our Rationale
+## See3 Is The Only Sound Approach
 
-We champion hardware-attestation. Hardware-attested cameras embed a unique proof with each photo they take, certifying that it was taken by that specific camera. This proof is created by a non-cloneable, tamper-proof chip unique to the camera, ensuring the image's authenticity. This will be backed by trust in a signer authority, such as the camera manufacturer, who can certify camera signer identities using cryptographic signatures. It is also possible for the manufacturer of a smartphone to act as the trust-root -- the hardware-attested device integrity APIs which are used to secure banking apps are suitable for this purpose. A similar process can be used for audio and video. It's cheaper to undermine software, but expensive to compromise secure chips -- that's why we prefer this approach. **In summary, the attestation proof tells us that the image is taken by a honest camera, meaning we can usually trust that it is a picture of a real object. We can flag images which don’t have this proof -- guilty until proven innocent, unlike watermarks.**
+Traditional forgeries were relatively easy to detect, but deepfakes can now create images almost indistinguishable from real ones at a low cost. For instance, services like “OnlyFake” generate realistic fake IDs for just $15, enabling fraud even against trained professionals. This has lead
 
-However, weak attestation systems (such as C2PA's implicit attestation) can be abused to link images to specific users or devices. By revealing all of the signatures and public keys in the cryptographic chain of trust, these schemes allow attackers to link all images that your camera has ever taken to each other: if we know that an image came from someone’s camera, we can identify all other images which came from that camera. This could be used to de-anonymise whistle-blowers who have published images from their camera under their real names. Therefore, See3 **scrubs the sensitive information using ZK.**
+Current detection methods -- such as AI models -- are quickly becoming obsolete as the technology for creating deepfakes evolves faster than detection capabilities. Techniques for watermark deepfakes, marking them as not real, don't prevent deepfakes generated with malicious intent from spreading because adding watermarks to deepfakes is optional, and they are also easy to remove. Ultimately, most approaches did not address the core problem of knowing whether or not images were indeed taken by cameras, which is what actually makes an image real, thus industries began to consolidate around C2PA.
 
-However, without additional technology, the removal of the traceable signer identities makes it impossible to blacklist malicious cameras. Yet, we need camera blacklists -- they enable social media platforms and apps to flag images which came from that particular camera which is known to have produced misleading images in the past. This is necessary to keep our system secure: since it is expensive to compromise secure hardware, and the hacked hardware becomes useless to an attacker if it has been blacklisted, the use of camera blacklists would ensure that camera-hacking is rare. Reducing the problem of camera-hacking would reduce the deepfake problem such that arbitration is capable of handling the remaining edge cases. For these reasons, See3 **re-introduces the camera identifier in an encrypted form, such that only the trusted Blacklist Keeper entity can access it.** 
+C2PA and See3 are technologies for media authentication. C2PA attaches origin information to media files, which could be used to prove that images came from a real camera. See3 is built on the same principle: a tamper-proof chip embeds a cryptographic proof in each photo, verifying its origin. 
+
+However, See3 was developed to address the privacy and regulatory-compliance limitations of C2PA, including:
+
+1. **Compliance and Privacy Issues**
+   - **Dependence on CAs**: C2PA relies heavily on Certificate Authorities (CAs) to manage and validate cryptographic keys, granting them significant control.
+   - **Tracking and GDPR:** C2PA can't be implemented without granting CAs the ability to trace devices across images, creating GDPR-related concerns.
+   - **Potential for Abuse**: CAs can revoke or ban devices without transparent oversight, posing risks of censorship and misuse of power, which may be illegal.
+
+2. **Scalability Issues**
+   - **Operational Overhead**: Managing unique keys for millions of devices creates substantial logistical and cost challenges.
+   - **Offline Device Limitations**: Devices without consistent internet access struggle with essential duties, such as key rotation and revocation checks.
+
+3. **Geopolitical and Legal Concerns**
+   - **Data Sovereignty Conflicts**: C2PA's reliance on CAs operating under specific jurisdictions can lead to conflicts with regional governments.
+   - **Vulnerability to Foreign Influence**: External entities could pressure CAs to manipulate content authenticity, impacting political sovereignty.
