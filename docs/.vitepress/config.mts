@@ -18,8 +18,8 @@ export default defineConfig({
         items: [
           { text: 'What See3 Is', link: '/Introduction/Introduction' },
           { text: 'Why We Need See3', link: '/Introduction/Motivation' },
-          { text: 'See3\'s Governance', link: '/Introduction/Governance' },
           { text: 'How See3 Works', link: '/Introduction/Technical' },
+          { text: 'See3\'s Governance', link: '/Introduction/Governance' },
           { text: 'Roadmap and FAQ', link: '/Introduction/Beyond' }
         ]
       },

@@ -8,7 +8,7 @@ We're committed to cautious incentive design, therefore we have chosen to redesi
 
 ## Arbitration on Aleph Zero
 
-The See3 Arbitration Contract, operating on the Aleph Zero blockchain, secures our system of incentives and enforce penalties within the ecosystem. This contract is designed to uphold the integrity and trust of the hardware-attested content provenance system by ensuring that only secure and reliable hardware is utilized in the creation of content: it rewards the community for identifying cases of camera-hacking and slashes camera manufacturers who do not sufficiently tamper-proof their hardware. 
+The See3 Arbitration Contract secures our system of incentives and enforce penalties within the ecosystem. This contract is designed to uphold the integrity and trust of the hardware-attested content provenance system by ensuring that only secure and reliable hardware is utilized in the creation of content: it rewards the community for identifying cases of camera-hacking and slashes camera manufacturers who do not sufficiently tamper-proof their hardware. 
 
 ## How Does Governance Uphold See3's Security?
 

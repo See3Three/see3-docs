@@ -1,23 +1,123 @@
-# See3: An Open Standard for Hardware-Attested Content Provenance
+<script setup>
+const tableData = [
+  {
+    feature: 'Privacy-Preserving',
+    see3: "Yes",
+    aiDetection: "Yes",
+    c2pa: "No",
+    watermarking: "No"
+  },
+  {
+    feature: 'Regulatory Compliant',
+    see3: "Yes",
+    aiDetection: 'Under Some Conditions',
+    c2pa: 'Not When It Tracks Users',
+    watermarking: "Doesn't Support Moderation"
+  },
+  {
+    feature: 'Invisible to Users',
+    see3: "Yes",
+    aiDetection: 'Requires User Judgement',
+    c2pa: 'Lacks Central Trust System',
+    watermarking: 'A Little Better Than Detection Models'
+  },
+  {
+    feature: 'Easy to Implement',
+    see3: "Yes",
+    aiDetection: "Yes",
+    c2pa: 'Bad Tools',
+    watermarking: 'So-So'
+  },
+  {
+    feature: "Can't Be Faked",
+    see3: "Yes",
+    aiDetection: "No",
+    c2pa: "Yes",
+    watermarking: 'Harder to Fake'
+  },
+  {
+    feature: 'Survives Harmless Edits',
+    see3: 'Mostly',
+    aiDetection: "Yes",
+    c2pa: "No",
+    watermarking: 'Mostly'
+  },
+  {
+    feature: 'Supports Image Editors',
+    see3: "Yes",
+    aiDetection: "No",
+    c2pa: "Yes",
+    watermarking: "No"
+  },
+  {
+    feature: 'Records Of Provenance Data',
+    see3: "Yes",
+    aiDetection: "No",
+    c2pa: "Yes",
+    watermarking: 'Possible'
+  }
+]
 
-## The TL;DR
+const getCellClass = (value) => {
+  if (value === "Yes") return 'bg-green-200 dark:bg-green-800'
+  if (value === "No") return 'bg-red-200 dark:bg-red-800'
+  return 'bg-yellow-200 dark:bg-yellow-800'
+}
+</script>
 
-See3 enables you to take pictures and videos which are provably real. Our reference implementation of See3 includes all of the tools needed to capture and verify authenticated media on modern smartphones. It also supports the non-malicious editing of provably real media -- a verifiable history of edits is attached to each image. See3 is scalable, does not doxx the user, and is built around an extensible open-standard. The security of See3 depends on the tamper-proof cryptographic hardware which is included in all modern smartphones. 
+# See3 Is A Solution To Malicious Deepfakes
 
-## What Makes See3 Special
+See3 proves that your pictures are real when you take them, so that anyone viewing your pictures can be sure they aren't deepfakes. You can integrate See3 into any mobile application using our SDK, and it will work just like a normal camera app. 
 
-* It's totally privacy preserving, yet secure.
-* It's very easy to scale, and does not require new infrastructure.
-* It can be introduced in a frictionless, nearly invisible, manner.
-* It works offline.
+It works by using the existing secure-hardware capabilities of your device to show that the image was taken on a real, non-cheating camera. It's discrete too: everything the viewer needs to confirm that an image is real is stored in the image's metadata.
 
-**Killer Feature:** See3 lets you take and verify authenticated photos from mobile devices, without requiring any modifications to the underlying hardware or software. It uses native hardware-attestation features of modern smartphones, initially used by banks to secure their mobile infrastructure, to provide a great degree of security. 
+You don't need to change how your software works, since See3 is practically invisible and doesn't leak identifiable information by default. See3 = Frustration Free.
 
-**We've built an SDK for taking and verifying authenticated photos that can be rolled-into any React Native smartphone app.**
+## See3 Is Well-Supported
 
-See3 also supports **Verifiable Media Edits**. This enables you edit images such that you can prove that the edited version corresponds to the verified original image. This allows us to **verify the authenticity of images which have been edited.** Additionally, the media metadata must include a verifiable edit history for each edited image -- this prevents misleading edits from going unnoticed.
+**See3 has mobile SDKs for Kotlin, Swift and React Native.**
 
-See3 is an alternative to C2PA. It rectifies C2PA's faults by replacing the traceable implicit-attestation system with our privacy-preserving technology, and also replaces the default edit-signing mechanism such that all edits are fully transparent and verifiable.
+It works smoothly on mobile devices. We also offer desktop and web SDKs for verifying See3 proofs. They support Rust, Python, Kotlin/Java and TypeScript (Node.js and Browser).
+
+## Why See3?
+
+### TL;DR
+
+* It's the easiest tool to integrate.
+* It's GDPR-complaint out-of-the-box, since it's privacy-preserving.
+* You don't need to change your UI -- it can be integrated invisibly.
+* It's lightweight, extensible and scalable.
+
+### Comparison Table
+
+<table class="table-auto w-full text-left border-collapse border border-gray-300 dark:border-gray-700">
+  <thead>
+    <tr>
+      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5"></th>
+      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">See3</th>
+      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">AI Detection</th>
+      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">C2PA</th>
+      <th class="border border-gray-300 dark:border-gray-700 px-4 py-2 w-1/5">Watermarking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="row in tableData" :key="row.feature">
+      <td class="border border-gray-300 dark:border-gray-700 px-4 py-2">{{ row.feature }}</td>
+      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.see3)]">{{ row.see3 }}</td>
+      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.aiDetection)]">{{ row.aiDetection }}</td>
+      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.c2pa)]">{{ row.c2pa }}</td>
+      <td :class="['border border-gray-300 dark:border-gray-700 px-4 py-2', getCellClass(row.watermarking)]">{{ row.watermarking }}</td>
+    </tr>
+  </tbody>
+</table>
+
+## Why Not Use C2PA?
+
+We've explained why C2PA is a massive liability to anyone who wishes to integrate it through a series of blogs. The problem mostly comes down to its lack of privacy.
+
+The links to these blogs are as follows.
+
+- [C2PA Is An American Surveillance Network, And The EU WIll Ban It.](https://veracity-labs.medium.com/c2pa-is-an-american-surveillance-network-b523c5457cc3)
 
 ## What Does The Reference Implementation Include?
 
